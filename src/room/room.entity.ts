@@ -5,4 +5,5 @@ export class Habitacion {
   capacidad: number;
   tipo: string;
   disponibilidad: boolean;
+  descripcion: string;
 }
