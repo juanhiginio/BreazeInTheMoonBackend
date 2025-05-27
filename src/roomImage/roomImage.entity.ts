@@ -1,7 +1,17 @@
-export class ImagenHabitacion {
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Room } from '../room/room.entity';
+
+@Entity('room_image')
+export class RoomImage {
+  @PrimaryGeneratedColumn()
   id_imagen: number;
-  id_habitacion: number;
+
+  @ManyToOne(() => Room, (room) => room.imagenes, { onDelete: 'CASCADE' })
+  room: Room;
+
+  @Column()
   url_imagen: string;
-  descripcion_imagen: string;
-  orden: number; // Orden de la imagen en la galería
+
+  @Column({ nullable: true })
+  descripcion: string;
 }

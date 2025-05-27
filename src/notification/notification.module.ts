@@ -1,9 +1,13 @@
 import { Module } from '@nestjs/common';
-import { NotificationController } from './notification.controller';
-import { NotificationService } from './notification.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Notificacion } from './notification.entity';
+import { NotificacionService } from './notification.service';
+import { NotificacionController } from './notification.controller';
+import { User } from '../user/user.entity';
 
 @Module({
-  controllers: [NotificationController],
-  providers: [NotificationService]
+  imports: [TypeOrmModule.forFeature([Notificacion, User])],
+  controllers: [NotificacionController],
+  providers: [NotificacionService],
 })
-export class NotificationModule {}
+export class NotificacionModule {}

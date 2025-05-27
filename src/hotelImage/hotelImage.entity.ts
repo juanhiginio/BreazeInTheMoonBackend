@@ -1,7 +1,17 @@
-export class ImagenHotel {
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Hotel } from '../hotel/hotel.entity';
+
+@Entity('hotel_image')
+export class HotelImage {
+  @PrimaryGeneratedColumn()
   id_imagen: number;
-  id_hotel: number;
+
+  @ManyToOne(() => Hotel, (hotel) => hotel.imagenes, { onDelete: 'CASCADE' })
+  hotel: Hotel;
+
+  @Column()
   url_imagen: string;
-  descripcion_imagen: string;
-  orden: number; // Orden de la imagen en la galería
+
+  @Column({ nullable: true })
+  descripcion: string;
 }

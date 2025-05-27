@@ -1,0 +1,143 @@
+services:
+  db:
+    image: mysql:8
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_DATABASE: breazeinthemoonhotel
+      MYSQL_USER: breaza_user
+      MYSQL_PASSWORD: breaza_password
+      MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - '3306:3306'
+    volumes:
+      - db_data:/var/lib/mysql
+
+  auth:
+    build: .
+    container_name: auth_service
+    command: npm run start:prod
+    depends_on:
+      - db
+    environment:
+      NODE_ENV: docker
+    ports:
+      - '3001:3000'
+    volumes:
+      - .:/app
+    restart: unless-stopped
+
+  user:
+    build: .
+    container_name: user_service
+    command: npm run start:prod
+    depends_on:
+      - db
+    environment:
+      NODE_ENV: docker
+    ports:
+      - '3002:3000'
+    volumes:
+      - .:/app
+    restart: unless-stopped
+
+  hotel:
+    build: .
+    container_name: hotel_service
+    command: npm run start:prod
+    depends_on:
+      - db
+    environment:
+      NODE_ENV: docker
+    ports:
+      - '3003:3000'
+    volumes:
+      - .:/app
+    restart: unless-stopped
+
+  room:
+    build: .
+    container_name: room_service
+    command: npm run start:prod
+    depends_on:
+      - db
+    environment:
+      NODE_ENV: docker
+    ports:
+      - '3004:3000'
+    volumes:
+      - .:/app
+    restart: unless-stopped
+
+  notification:
+    build: .
+    container_name: notification_service
+    command: npm run start:prod
+    depends_on:
+      - db
+    environment:
+      NODE_ENV: docker
+    ports:
+      - '3005:3000'
+    volumes:
+      - .:/app
+    restart: unless-stopped
+
+  reservation:
+    build: .
+    container_name: reservation_service
+    command: npm run start:prod
+    depends_on:
+      - db
+    environment:
+      NODE_ENV: docker
+    ports:
+      - '3006:3000'
+    volumes:
+      - .:/app
+    restart: unless-stopped
+
+  review:
+    build: .
+    container_name: review_service
+    command: npm run start:prod
+    depends_on:
+      - db
+    environment:
+      NODE_ENV: docker
+    ports:
+      - '3007:3000'
+    volumes:
+      - .:/app
+    restart: unless-stopped
+
+  room-image:
+    build: .
+    container_name: room_image_service
+    command: npm run start:prod
+    depends_on:
+      - db
+    environment:
+      NODE_ENV: docker
+    ports:
+      - '3008:3000'
+    volumes:
+      - .:/app
+    restart: unless-stopped
+
+  hotel-image:
+    build: .
+    container_name: hotel_image_service
+    command: npm run start:prod
+    depends_on:
+      - db
+    environment:
+      NODE_ENV: docker
+    ports:
+      - '3009:3000'
+    volumes:
+      - .:/app
+    restart: unless-stopped
+
+volumes:
+  db_data:
