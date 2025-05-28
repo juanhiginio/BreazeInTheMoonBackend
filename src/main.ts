@@ -20,7 +20,7 @@ async function bootstrap() {
     .setTitle('Breaze API')
     .setDescription('Documentación de la API del sistema de reservas')
     .setVersion('1.0')
-    .addBearerAuth() // Necesario si vas a usar JWT
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
